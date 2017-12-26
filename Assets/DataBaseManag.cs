@@ -1,0 +1,71 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using System.IO;
+using MySql.Data.MySqlClient;
+
+public class DataBaseManag : MonoBehaviour {
+
+
+    private string host = "mysql-game.alwaysdata.net";
+    private string database="game_my";
+    private string username="game";
+    private string password="test";
+    public Text TextState;
+    MySqlConnection con;
+    public InputField login;
+    public InputField pass;
+    public Text TextLogin;
+
+	// Use this for initialization
+	void ConnectBdd ()
+    {
+        string constr = "Server=" + host + ";DATABASE=" + database + ";User ID=" + username + ";Password=" + password + ";Pooling=true;Charset=utf8;";
+        try
+        {
+            con = new MySqlConnection(constr);
+            con.Open();
+            TextState.text = con.State.ToString();
+        }
+        catch (IOException ex)
+        {
+            TextState.text = ex.ToString();
+        }
+		
+	}
+	
+	// Update is called once per frame
+	void Update ()
+    {
+		
+	}
+    private void OnApplicationQuit()
+    {
+        Debug.Log("Shutdown Connexion");
+        if (con != null && con.State.ToString() != "Closed")
+        {
+            con.Close();
+        }
+    }
+    public void Register()
+    {
+        ConnectBdd();
+        string regisComm = "INSERT INTO users VALUES (default,'" + login.text + "','" + pass.text + "')";
+        MySqlCommand cmd = new MySqlCommand(regisComm,con);
+        try
+        {
+            cmd.ExecuteReader();
+            TextLogin.text = "Register sucessfull";
+
+        }
+        catch(IOException ex)
+        {
+            TextLogin.text = ex.ToString();
+        }
+        cmd.Dispose();
+        con.Close();
+
+    }
+
+}
