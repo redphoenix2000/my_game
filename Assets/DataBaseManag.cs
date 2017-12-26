@@ -50,21 +50,37 @@ public class DataBaseManag : MonoBehaviour {
     }
     public void Register()
     {
+        bool userex=false;
         ConnectBdd();
-        string regisComm = "INSERT INTO users VALUES (default,'" + login.text + "','" + pass.text + "')";
-        MySqlCommand cmd = new MySqlCommand(regisComm,con);
-        try
+        MySqlCommand commver = new MySqlCommand("SELECT pseudo FROM users WHERE pseudo='" + login.text + "'", con);
+        MySqlDataReader myreader = commver.ExecuteReader();
+        while (myreader.Read())
         {
-            cmd.ExecuteReader();
-            TextLogin.text = "Register sucessfull";
+            if (myreader["pseudo"].ToString() != "")
+            {
+                TextLogin.text = "Pseudo alreadu exist !!!";
+                userex = true;
+            }
 
         }
-        catch(IOException ex)
+        myreader.Close();
+        if (!userex)
         {
-            TextLogin.text = ex.ToString();
+            string regisComm = "INSERT INTO users VALUES (default,'" + login.text + "','" + pass.text + "')";
+            MySqlCommand cmd = new MySqlCommand(regisComm, con);
+            try
+            {
+                cmd.ExecuteReader();
+                TextLogin.text = "Register sucessfull";
+
+            }
+            catch (IOException ex)
+            {
+                TextLogin.text = ex.ToString();
+            }
+            cmd.Dispose();
+            con.Close();
         }
-        cmd.Dispose();
-        con.Close();
 
     }
 
