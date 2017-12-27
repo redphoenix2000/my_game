@@ -9,10 +9,10 @@ using System.Text;
 public class DataBaseManag : MonoBehaviour {
 
 
-    private string host = "mysql-game.alwaysdata.net";
-    private string database="game_my";
-    private string username="game";
-    private string password="test";
+    public string host;
+    public string database;
+    public string username;
+    public string password;
     public Text TextState;
     MySqlConnection con;
     public InputField login;
@@ -22,7 +22,7 @@ public class DataBaseManag : MonoBehaviour {
 	// Use this for initialization
 	void ConnectBdd ()
     {
-        string constr = "Server=" + host + ";DATABASE=" + database + ";User ID=" + username + ";Password=" + password + ";Pooling=true;Charset=utf8;";
+        string constr = "Server=" + host + ";DATABASE=" + database + ";User ID=" + username + ";Password=" + crypt256(password) + ";Pooling=true;Charset=utf8;";
         try
         {
             con = new MySqlConnection(constr);
