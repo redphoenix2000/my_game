@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/sqlscene.unity
+- path: Assets/scene/Registration.unity
   isLoaded: 1
   isActive: 1
