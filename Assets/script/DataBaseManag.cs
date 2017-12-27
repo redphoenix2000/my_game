@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using MySql.Data.MySqlClient;
 using System.Text;
+using UnityEngine.SceneManagement;
 
 public class DataBaseManag : MonoBehaviour {
 
@@ -16,11 +17,11 @@ public class DataBaseManag : MonoBehaviour {
     public Text TextState;
     MySqlConnection con;
     public InputField login;
+    public InputField email;
     public InputField pass;
     public Text TextLogin;
 
-	// Use this for initialization
-	void ConnectBdd ()
+    public void ConnectBdd ()
     {
         string constr = "Server=" + host + ";DATABASE=" + database + ";User ID=" + username + ";Password=" + crypt256(password) + ";Pooling=true;Charset=utf8;";
         try
@@ -47,11 +48,6 @@ public class DataBaseManag : MonoBehaviour {
         return myhash.ToString();
     }
 
-    // Update is called once per frame
-    void Update ()
-    {
-		
-	}
     private void OnApplicationQuit()
     {
         Debug.Log("Shutdown Connexion");
@@ -76,14 +72,20 @@ public class DataBaseManag : MonoBehaviour {
 
         }
         myreader.Close();
+        if (login.text == "" || pass.text == "" || email.text == "")
+        {
+            TextLogin.text = "You should right something into all case !!!";
+            userex = true;
+        }
         if (!userex)
         {
-            string regisComm = "INSERT INTO users VALUES (default,'" + login.text + "','" + crypt256(pass.text) + "')";
+            string regisComm = "INSERT INTO users VALUES (default,'" + login.text + "','" + crypt256(pass.text) +"','"+email.text+ "')";
             MySqlCommand cmd = new MySqlCommand(regisComm, con);
             try
             {
                 cmd.ExecuteReader();
                 TextLogin.text = "Register sucessfull";
+                SceneManager.LoadScene("Login");
 
             }
             catch (IOException ex)
