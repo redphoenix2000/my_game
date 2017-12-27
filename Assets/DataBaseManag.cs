@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using MySql.Data.MySqlClient;
+using System.Text;
 
 public class DataBaseManag : MonoBehaviour {
 
@@ -34,9 +35,20 @@ public class DataBaseManag : MonoBehaviour {
         }
 		
 	}
-	
-	// Update is called once per frame
-	void Update ()
+    static string crypt256(string pass)
+    {
+        System.Security.Cryptography.SHA256Managed crypt = new System.Security.Cryptography.SHA256Managed();
+        System.Text.StringBuilder myhash = new System.Text.StringBuilder();
+        byte[] crypto = crypt.ComputeHash(Encoding.UTF8.GetBytes(pass), 0, Encoding.UTF8.GetByteCount(pass));
+        foreach (byte theByte in crypto)
+        {
+            myhash.Append(theByte.ToString("x2"));
+        }
+        return myhash.ToString();
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
 		
 	}
@@ -66,7 +78,7 @@ public class DataBaseManag : MonoBehaviour {
         myreader.Close();
         if (!userex)
         {
-            string regisComm = "INSERT INTO users VALUES (default,'" + login.text + "','" + pass.text + "')";
+            string regisComm = "INSERT INTO users VALUES (default,'" + login.text + "','" + crypt256(pass.text) + "')";
             MySqlCommand cmd = new MySqlCommand(regisComm, con);
             try
             {
