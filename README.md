@@ -1,4 +1,7 @@
 # my_game
+
+Faites attention de bien faire vos commit sur la branche feature avant de les push sur la master
+
 version 1
 
 -La .exe que j ai genere ne fonctionne pas j ai un probleme avec les dll
