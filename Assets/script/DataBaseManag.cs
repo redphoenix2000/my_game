@@ -48,6 +48,7 @@ public class DataBaseManag : MonoBehaviour {
         return myhash.ToString();
     }
 
+
     private void OnApplicationQuit()
     {
         Debug.Log("Shutdown Connexion");
