@@ -24,3 +24,7 @@ version_7 :
 version_9
 - correction bug
 
+version_10 :
+
+- le .exe fonctionne
+
