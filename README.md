@@ -21,4 +21,6 @@ version_7 :
 - Login terminer avec gestion d'erreur et authentification
 - Debut scene Menu
 
+version_9
+- correction bug
 
