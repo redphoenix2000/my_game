@@ -18,4 +18,8 @@ version_6 :
 -possibilité de naviguer entre les scènes
 -debut du script pour connexion a la base de donnée
 
+version_7 :
+- Login terminer avec gestion d'erreur et authentification
+- Debut scene Menu
+
 
