@@ -78,6 +78,7 @@ public class connect : MonoBehaviour
         {
             TextStategeneral.text = exec.ToString();
         }
+        con.Close();
 
         
 
