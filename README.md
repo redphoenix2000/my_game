@@ -28,3 +28,7 @@ version_10 :
 
 - le .exe fonctionne
 
+version_12 :
+
+- audio ajouté
+
