@@ -84,32 +84,38 @@ public class DataBaseManag : MonoBehaviour {
             TextLogin.text = "pseudo < 10 char";
             userex = true;
         }
-        if (login.text == "" || pass.text == "" || email.text == "")
+        if (!userex)
         {
-            TextLogin.text = "You should right something into all case !!!";
-            userex = true;
+            if (login.text == "" || pass.text == "" || email.text == "")
+            {
+                TextLogin.text = "You should right something into all case !!!";
+                userex = true;
+            }
         }
-        try
+        if (!userex)
         {
-            SmtpClient my_server = new SmtpClient(smtp, port);
-            my_server.EnableSsl = true;
-            my_server.UseDefaultCredentials = false;
-            my_server.Credentials = new System.Net.NetworkCredential(username + "@alwaysdata.net", crypt256(password));
-            my_server.DeliveryMethod = SmtpDeliveryMethod.Network;
-            my_server.EnableSsl = false;
-            string my_mail = username + "@alwaysdata.net";
-            string dest = email.text;
-            MailMessage msg = new MailMessage(my_mail, dest);
-            msg.Subject = "TheOuCafe";
-            msg.Body = "You have been registered as " + login.text;
-            my_server.Send(msg);
+            try
+            {
+                SmtpClient my_server = new SmtpClient(smtp, port);
+                my_server.EnableSsl = true;
+                my_server.UseDefaultCredentials = false;
+                my_server.Credentials = new System.Net.NetworkCredential(username + "@alwaysdata.net", crypt256(password));
+                my_server.DeliveryMethod = SmtpDeliveryMethod.Network;
+                my_server.EnableSsl = false;
+                string my_mail = username + "@alwaysdata.net";
+                string dest = email.text;
+                MailMessage msg = new MailMessage(my_mail, dest);
+                msg.Subject = "TheOuCafe";
+                msg.Body = "You have been registered as " + login.text;
+                my_server.Send(msg);
 
-        }
-        catch (Exception my_execpt)
-        {
-            TextLogin.text = "Maybe Wrong email ";
-            Debug.Log(my_execpt);
-            userex = true;
+            }
+            catch (Exception my_execpt)
+            {
+                TextLogin.text = "Maybe Wrong email ";
+                Debug.Log(my_execpt);
+                userex = true;
+            }
         }
         if (!userex)
         {
