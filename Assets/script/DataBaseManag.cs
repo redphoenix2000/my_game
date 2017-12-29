@@ -1,8 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.UI;
 using System.Data;
+using System.Net.Mail;
+using System.Linq;
+using System.Threading;
 using System.IO;
 using MySql.Data.MySqlClient;
 using System.Text;
@@ -10,7 +14,7 @@ using UnityEngine.SceneManagement;
 
 public class DataBaseManag : MonoBehaviour {
 
-
+    public string smtp;
     public string host;
     public string database;
     public string username;
@@ -60,6 +64,7 @@ public class DataBaseManag : MonoBehaviour {
     }
     public void Register()
     {
+        int port = 25;
         bool userex=false;
         ConnectBdd();
         MySqlCommand commver = new MySqlCommand("SELECT pseudo FROM users WHERE pseudo='" + login.text + "'", con);
@@ -82,6 +87,28 @@ public class DataBaseManag : MonoBehaviour {
         if (login.text == "" || pass.text == "" || email.text == "")
         {
             TextLogin.text = "You should right something into all case !!!";
+            userex = true;
+        }
+        try
+        {
+            SmtpClient my_server = new SmtpClient(smtp, port);
+            my_server.EnableSsl = true;
+            my_server.UseDefaultCredentials = false;
+            my_server.Credentials = new System.Net.NetworkCredential(username + "@alwaysdata.net", crypt256(password));
+            my_server.DeliveryMethod = SmtpDeliveryMethod.Network;
+            my_server.EnableSsl = false;
+            string my_mail = username + "@alwaysdata.net";
+            string dest = email.text;
+            MailMessage msg = new MailMessage(my_mail, dest);
+            msg.Subject = "TheOuCafe";
+            msg.Body = "You have been registered as " + login.text;
+            my_server.Send(msg);
+
+        }
+        catch (Exception my_execpt)
+        {
+            TextLogin.text = "Maybe Wrong email ";
+            Debug.Log(my_execpt);
             userex = true;
         }
         if (!userex)
