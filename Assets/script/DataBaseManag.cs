@@ -11,7 +11,7 @@ using System.IO;
 using MySql.Data.MySqlClient;
 using System.Text;
 using UnityEngine.SceneManagement;
-
+[ExecuteInEditMode]
 public class DataBaseManag : MonoBehaviour {
 
     public string smtp;
