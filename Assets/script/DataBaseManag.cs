@@ -74,6 +74,11 @@ public class DataBaseManag : MonoBehaviour {
 
         }
         myreader.Close();
+        if (login.text.Length > 9 )
+        {
+            TextLogin.text = "pseudo < 10 char";
+            userex = true;
+        }
         if (login.text == "" || pass.text == "" || email.text == "")
         {
             TextLogin.text = "You should right something into all case !!!";

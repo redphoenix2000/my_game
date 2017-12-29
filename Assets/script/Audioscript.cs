@@ -7,10 +7,10 @@ public class Audioscript : MonoBehaviour {
 
     void Awake()
     {
-        
         GameObject []music = GameObject.FindGameObjectsWithTag("music");
         if (music.GetLength(0) > 1)
         {
+
             DestroyImmediate(music[0]);
             music[0] = this.gameObject;
             music[1] = null;
