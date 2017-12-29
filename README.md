@@ -35,3 +35,8 @@ version_12 :
 version_14 :
 
 - password hide with stars
+
+version_15 :
+
+- verification email valid
+
