@@ -32,3 +32,6 @@ version_12 :
 
 - audio ajouté
 
+version_14 :
+
+- password hide
