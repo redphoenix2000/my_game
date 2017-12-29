@@ -34,4 +34,4 @@ version_12 :
 
 version_14 :
 
-- password hide
+- password hide with stars
