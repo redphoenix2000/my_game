@@ -54,14 +54,17 @@ public class connect : MonoBehaviour
         string pass_pseudo = null;
         try
         {
-            MySqlCommand command_login = new MySqlCommand("SELECT * FROM users WHERE pseudo = '" + my_login.text + "'", con);
+            MySqlCommand command_login = new MySqlCommand("SELECT * FROM users WHERE pseudo = '" + @my_login.text + "'", con);
             MySqlDataReader my_Reader = command_login.ExecuteReader();
             while (my_Reader.Read())
             {
                 pass_pseudo = my_Reader["password"].ToString();
-                if (pass_pseudo == crypt256(my_pass.text))
+                if (pass_pseudo == @crypt256(my_pass.text))
                 {
+                    GameObject player_info = GameObject.FindGameObjectWithTag("player");
+                    player_info.name = my_login.text;
                     TextStategeneral.text = "Welcome " + my_login.text;
+                    DontDestroyOnLoad(player_info);
                     SceneManager.LoadScene("Menu");
                 }
                 else
