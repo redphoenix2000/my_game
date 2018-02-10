@@ -40,3 +40,9 @@ version_15 :
 
 - verification email valid
 
+version_20 :
+
+- menu & debut profil
+
+
+
