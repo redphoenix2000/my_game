@@ -24,6 +24,10 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene("Options");
     }
+    public void profil()
+    {
+        SceneManager.LoadScene("profil");
+    }
 
 
 

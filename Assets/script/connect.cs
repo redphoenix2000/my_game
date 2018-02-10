@@ -65,6 +65,7 @@ public class connect : MonoBehaviour
                     player_info.name = my_login.text;
                     TextStategeneral.text = "Welcome " + my_login.text;
                     DontDestroyOnLoad(player_info);
+                    my_Reader.Close();
                     SceneManager.LoadScene("Menu");
                 }
                 else

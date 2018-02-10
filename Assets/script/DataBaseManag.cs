@@ -41,7 +41,7 @@ public class DataBaseManag : MonoBehaviour {
         }
 		
 	}
-    static string crypt256(string pass)
+    public static string crypt256(string pass)
     {
         System.Security.Cryptography.SHA256Managed crypt = new System.Security.Cryptography.SHA256Managed();
         System.Text.StringBuilder myhash = new System.Text.StringBuilder();
@@ -139,6 +139,7 @@ public class DataBaseManag : MonoBehaviour {
     }
     public void exit()
     {
+        con.Close();
         Application.Quit();
     } 
 
