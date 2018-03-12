@@ -28,6 +28,14 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene("profil");
     }
+    public void singleplayer()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
+    public void multiplayer()
+    {
+        SceneManager.LoadScene("multiplayer");
+    }
 
 
 

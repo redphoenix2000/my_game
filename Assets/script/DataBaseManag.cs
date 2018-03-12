@@ -133,13 +133,13 @@ public class DataBaseManag : MonoBehaviour {
                 TextLogin.text = ex.ToString();
             }
             cmd.Dispose();
-            con.Close();
+            OnApplicationQuit();
         }
 
     }
     public void exit()
     {
-        con.Close();
+        OnApplicationQuit();
         Application.Quit();
     } 
 
