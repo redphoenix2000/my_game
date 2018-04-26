@@ -119,7 +119,7 @@ public class DataBaseManag : MonoBehaviour {
         }
         if (!userex)
         {
-            string regisComm = "INSERT INTO users VALUES (default,'" + @login.text + "','" + @crypt256(pass.text) +"','"+@email.text+ "')";
+            string regisComm = "INSERT INTO users VALUES (default,'" + @login.text + "','" + @crypt256(pass.text) +"','"+@email.text+ "','" +"0"+ "')";
             MySqlCommand cmd = new MySqlCommand(regisComm, con);
             try
             {

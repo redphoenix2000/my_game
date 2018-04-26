@@ -5,15 +5,13 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Options : MonoBehaviour {
-    public Slider musicvolume;
-    public AudioSource my_music;
+    public bool fullscreen;
+    public float musicvolume;
+    public int quality;
+    public int resolution;
     public void back()
     {
         SceneManager.LoadScene("Menu");
-    }
-    void Update()
-    {
-        AudioListener.volume = musicvolume.value;
     }
 
 }

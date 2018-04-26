@@ -347,6 +347,7 @@
     <Compile Include="Assets\script\FinishLane.cs" />
     <Compile Include="Assets\script\Menu.cs" />
     <Compile Include="Assets\script\Options.cs" />
+    <Compile Include="Assets\script\OptionsManager.cs" />
     <Compile Include="Assets\script\player_info.cs" />
     <Compile Include="Assets\script\PlayerController.cs" />
     <Compile Include="Assets\script\RestartButton.cs" />
