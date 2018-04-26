@@ -34,7 +34,7 @@ public class Menu : MonoBehaviour
     }
     public void multiplayer()
     {
-        SceneManager.LoadScene("multiplayer");
+        SceneManager.LoadScene("multi");
     }
 
 
