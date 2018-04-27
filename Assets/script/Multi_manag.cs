@@ -40,12 +40,29 @@ public class Multi_manag : MonoBehaviour {
             list_room.options.Add(new Dropdown.OptionData(room.Name));
         }
     }
-    void OnPhotonRandomJoinFailed()
+    void chooseRoom()
     {
-        if(create_room.text!="" && PhotonNetwork.CreateRoom(create_room.text) && list_room.value.ToString() == "0")
+        RoomInfo[] inforoom = PhotonNetwork.GetRoomList();
+        if(create_room.text!=""  && list_room.value.ToString() == "0")
         {
-            PhotonNetwork.CreateRoom(create_room.text);
-            Debug.Log("Room créer");
+            bool create = true;
+            foreach (RoomInfo room in inforoom)
+            {
+                if (create_room.text==room.Name)
+                {
+                    create= false;
+                }
+            }
+            if (create==true)
+            {
+                PhotonNetwork.CreateRoom(create_room.text);
+                Debug.Log("Room créer");
+            }
+            else if(create==false)
+            {
+                status.text = "Status : Room already exist";
+                chooseRoom();
+            }
         }
         else if (create_room.text == "" && list_room.value.ToString() != "0")
         {
@@ -56,9 +73,8 @@ public class Multi_manag : MonoBehaviour {
             status.text = "Status : An error occured";
         }
         
-
-
     }
+
     void OnJoinedRoom()
     {
         Debug.Log("On rejoint la room");
@@ -73,12 +89,12 @@ public class Multi_manag : MonoBehaviour {
     {
         if (create_room.text != "" && list_room.value.ToString()=="0")
         {
-            OnPhotonRandomJoinFailed();
+            chooseRoom();
             panel_conf.gameObject.SetActive(false);
         }
         else if(create_room.text=="" && list_room.value.ToString()!="0")
         {
-            OnPhotonRandomJoinFailed();
+            chooseRoom();
             panel_conf.gameObject.SetActive(false);
         }
         else
