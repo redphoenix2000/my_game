@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Deplacement : MonoBehaviour {
 
-    float speed = 200f;
+    public float speed = 200f;
     PhotonView view;
 	void Start ()
     {
@@ -20,12 +20,18 @@ public class Deplacement : MonoBehaviour {
             if (view.isMine)
             {
                 GetComponent<Rigidbody>().velocity = movement * speed * Time.deltaTime;
+
             }
         }
     }
 
     // Update is called once per frame
-    void Update () {
-		
+    void Update ()
+    {
+		if(Input.GetKey(KeyCode.LeftShift))
+        {
+            speed = 400f;
+        }
+        speed = 200f;
 	}
 }
