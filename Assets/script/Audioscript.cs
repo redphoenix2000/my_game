@@ -9,23 +9,16 @@ public class Audioscript : MonoBehaviour {
     {
         
         GameObject []music = GameObject.FindGameObjectsWithTag("music");
-        if (music.GetLength(0) > 1)
+        if (music.GetLength(0) > 1 && music[0].name!=music[1].name)
         {
-            Scene actual = SceneManager.GetActiveScene();
-            if (actual.name == "Menu")
-            {
-                Debug.Log(actual.name);
-                DestroyImmediate(music[0]);
-            }
-            else
-            {
-                music[1].name = "second";
-                DestroyImmediate(music[1]);
-            }            
+            DestroyImmediate(music[0]);
+        }
+        else if (music.GetLength(0) > 1 && music[0].name == music[1].name)
+        {
+            DestroyImmediate(music[1]);
         }
         else
         {
-            music[0].name = "first";
             DontDestroyOnLoad(music[0]);
         }
         

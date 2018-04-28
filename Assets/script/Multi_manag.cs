@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class Multi_manag : MonoBehaviour {
 
@@ -100,6 +101,23 @@ public class Multi_manag : MonoBehaviour {
         else
         {
             status.text = "Status : You have to create a Room";
+        }
+    }
+    public void Menu()
+    {
+        PhotonNetwork.LeaveLobby();
+        PhotonNetwork.Disconnect();
+        SceneManager.LoadScene("Menu");
+    }
+    public void randomRoomJoin()
+    {
+        if (PhotonNetwork.GetRoomList().Length>0)
+        {
+            PhotonNetwork.JoinRandomRoom();
+        }
+        else
+        {
+            status.text = "Status : We can't join a random room";
         }
     }
 
