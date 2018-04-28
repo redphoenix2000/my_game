@@ -13,10 +13,15 @@ public class Multi_manag : MonoBehaviour {
     public InputField create_room;
     public Text status;
     private GameObject panel_conf;
+    private GameObject pause_panel;
+    private static bool game_is_paused=false;
 
     void Awake()
     {
         panel_conf = GameObject.Find("room_panel");
+        pause_panel = GameObject.Find("pause_panel");
+        pause_panel.gameObject.SetActive(false);
+
     }
     void Start ()
     {
@@ -26,7 +31,19 @@ public class Multi_manag : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape)&&game_is_paused==false)
+        {
+            pause_panel.gameObject.SetActive(true);
+            Time.timeScale = 0f;
+            game_is_paused = true;
+            GameObject.Find("Main Camera").GetComponent<Fps_camera>().enabled = false;
+            
+        }
+        else if (game_is_paused ==true && Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = 1f;
+            resume_game();
+        }
 	}
     void OnJoinedLobby()
     {
@@ -78,6 +95,7 @@ public class Multi_manag : MonoBehaviour {
 
     void OnJoinedRoom()
     {
+        status.text = "Status : ";
         Debug.Log("On rejoint la room");
         PhotonNetwork.Instantiate("Prefab/" + playerprefab.name, playerprefab.transform.position, Quaternion.identity, 0);
     }
@@ -119,6 +137,19 @@ public class Multi_manag : MonoBehaviour {
         {
             status.text = "Status : We can't join a random room";
         }
+    }
+    public void quit_room()
+    {
+        PhotonNetwork.LeaveRoom();
+        GameObject.Find("Main Camera").GetComponent<Fps_camera>().enabled = true;
+        pause_panel.gameObject.SetActive(false);
+        panel_conf.gameObject.SetActive(true);
+    }
+    public void resume_game()
+    {
+        GameObject.Find("Main Camera").GetComponent<Fps_camera>().enabled = true;
+        game_is_paused = false;
+        pause_panel.gameObject.SetActive(false);
     }
 
 }
