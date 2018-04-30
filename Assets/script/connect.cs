@@ -105,9 +105,9 @@ public class connect : MonoBehaviour
             float vol = PlayerPrefs.GetFloat("volume");
             music.volume = vol;
         }
-        if (PlayerPrefs.HasKey("screen"))
+        if (PlayerPrefs.HasKey("Screenmanager Is Fullscreen mode"))
         {
-            Screen.fullScreen = PlayerPrefs.GetString("screen") == "True";
+            Screen.fullScreen = PlayerPrefs.GetInt("Screenmanager Is Fullscreen mode") == 1;
         }
         if (PlayerPrefs.HasKey("quality"))
         {

@@ -30,8 +30,17 @@ public class OptionsManager : MonoBehaviour{
     }
     public void OnFullscreenToggle()
     {
-       options.fullscreen = Screen.fullScreen = fullscreentoggle.isOn;
-        PlayerPrefs.SetString("screen", options.fullscreen.ToString());
+        options.fullscreen = fullscreentoggle.isOn;
+        Screen.fullScreen = fullscreentoggle.isOn;
+        if (Screen.fullScreen)
+        {
+            PlayerPrefs.SetInt("Screenmanager Is Fullscreen mode", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Screenmanager Is Fullscreen mode", 0);
+        }
+        
         Debug.Log(options.fullscreen.ToString());
     }
     public void OnResolutionChange()
