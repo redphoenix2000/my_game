@@ -19,7 +19,6 @@ public class connect : MonoBehaviour
     public InputField my_login;
     public InputField my_pass;
     MySqlConnection con;
-    private OptionsManager opt;
     public Text TextStategeneral;
 
     public void ConnectBdd_2()
@@ -92,8 +91,5 @@ public class connect : MonoBehaviour
     {
         SceneManager.LoadScene("Registration");
     }
-    void Awake()
-    {
-        opt.LoadSettings();
-    }
+
 }

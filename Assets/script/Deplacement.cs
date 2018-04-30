@@ -2,36 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Deplacement : MonoBehaviour {
+public class Deplacement : MonoBehaviour{
 
-    public float speed = 200f;
-    PhotonView view;
+    private float speed;
+    private float jumpForce;
+    public GameObject cam;
+    bool view;
 	void Start ()
     {
-        view = GetComponent<PhotonView>();
-	}
+        speed = 7f;
+        jumpForce = 9f;
+        if(view)
+        {
+            cam.gameObject.SetActive(true);
+        }
+        else { cam.gameObject.SetActive(false); }
+
+    }
+    void Awake()
+    {
+        view = GetComponent<PhotonView>().isMine;
+    }
     void FixedUpdate()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(h, 0.0f, v);
-        if(h!=0f || v!=0f)
-        {
-            if (view.isMine)
-            {
-                GetComponent<Rigidbody>().velocity = movement * speed * Time.deltaTime;
 
-            }
-        }
     }
 
     // Update is called once per frame
     void Update ()
-    {
-		if(Input.GetKey(KeyCode.LeftShift))
-        {
-            speed = 400f;
-        }
-        speed = 200f;
+    { 
+                    float h = Input.GetAxis("Horizontal");
+                    float v = Input.GetAxis("Vertical");
+                    if (h != 0f || v != 0f)
+                    { 
+                    if (view)
+                    { 
+                        transform.Translate(speed * h * Time.deltaTime, 0f, speed * v * Time.deltaTime);
+                        if (Input.GetKey(KeyCode.Space))
+                        {
+                            Debug.Log("Space");
+                            GetComponent<Rigidbody>().velocity = new Vector3(0f, jumpForce);
+                        }
+                    }
+                }  
 	}
 }

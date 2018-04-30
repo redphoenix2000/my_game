@@ -23,9 +23,22 @@ public class player_info : MonoBehaviour {
     public InputField lastpass;
     public InputField new_pass;
     public InputField confirm_pass;
+    private GameObject pseudo;
+    private GameObject pass;
+    private GameObject grad;
+    private GameObject email;
+    private GameObject menu_button;
+    private GameObject update_button;
+
     // Use this for initialization
     void Awake ()
     {
+        pseudo = GameObject.Find("player_pseudo");
+        pass = GameObject.Find("player_password");
+        email = GameObject.Find("player_email");
+        grad = GameObject.Find("player_grade");
+        menu_button = GameObject.Find("Menu");
+        update_button = GameObject.Find("button_update");
         panel = GameObject.Find("menu_update");
         panel.gameObject.SetActive(false);
         try
@@ -77,6 +90,12 @@ public class player_info : MonoBehaviour {
     }
     public void update_pass()
     {
+        pseudo.gameObject.SetActive(false);
+        pass.gameObject.SetActive(false);
+        email.gameObject.SetActive(false);
+        grad.gameObject.SetActive(false);
+        menu_button.gameObject.SetActive(false);
+        update_button.gameObject.SetActive(false);
         panel.gameObject.SetActive(true);
     }
     public void apply()
@@ -93,6 +112,11 @@ public class player_info : MonoBehaviour {
                 if (DataBaseManag.crypt256(lastpass.text) == my_Reader.GetString(2) && new_pass.text==confirm_pass.text)
                 {
                     b = true;
+                }
+                if(lastpass.text=="" || new_pass.text=="" || confirm_pass.text=="")
+                {
+                    b = false;
+                    error.text = "Error : " + "Select all input";
                 }
                 else
                 {
@@ -116,6 +140,12 @@ public class player_info : MonoBehaviour {
                 }
                 cmd.Dispose();
                 panel.gameObject.SetActive(false);
+                pseudo.gameObject.SetActive(true);
+                pass.gameObject.SetActive(true);
+                email.gameObject.SetActive(true);
+                grad.gameObject.SetActive(true);
+                menu_button.gameObject.SetActive(true);
+                update_button.gameObject.SetActive(true);
             }
             con.Close();
         }
@@ -126,6 +156,12 @@ public class player_info : MonoBehaviour {
     }
     public void menu_quit()
     {
+        pseudo.gameObject.SetActive(true);
+        pass.gameObject.SetActive(true);
+        email.gameObject.SetActive(true);
+        grad.gameObject.SetActive(true);
+        menu_button.gameObject.SetActive(true);
+        update_button.gameObject.SetActive(true);
         panel.gameObject.SetActive(false);
     }
 }

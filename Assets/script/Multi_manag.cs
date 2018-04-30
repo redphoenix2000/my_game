@@ -26,6 +26,7 @@ public class Multi_manag : MonoBehaviour {
     void Start ()
     {
         PhotonNetwork.ConnectUsingSettings(_gameversion);
+        
 	}
 
     // Update is called once per frame
@@ -36,12 +37,12 @@ public class Multi_manag : MonoBehaviour {
             pause_panel.gameObject.SetActive(true);
             Time.timeScale = 0f;
             game_is_paused = true;
-            GameObject.Find("Main Camera").GetComponent<Fps_camera>().enabled = false;
             
         }
         else if (game_is_paused ==true && Input.GetKeyDown(KeyCode.Escape))
         {
             Time.timeScale = 1f;
+            game_is_paused = false;
             resume_game();
         }
 	}
@@ -131,6 +132,7 @@ public class Multi_manag : MonoBehaviour {
     {
         if (PhotonNetwork.GetRoomList().Length>0)
         {
+            panel_conf.gameObject.SetActive(false);
             PhotonNetwork.JoinRandomRoom();
         }
         else
@@ -140,14 +142,13 @@ public class Multi_manag : MonoBehaviour {
     }
     public void quit_room()
     {
+        game_is_paused = false;
         PhotonNetwork.LeaveRoom();
-        GameObject.Find("Main Camera").GetComponent<Fps_camera>().enabled = true;
         pause_panel.gameObject.SetActive(false);
         panel_conf.gameObject.SetActive(true);
     }
     public void resume_game()
     {
-        GameObject.Find("Main Camera").GetComponent<Fps_camera>().enabled = true;
         game_is_paused = false;
         pause_panel.gameObject.SetActive(false);
     }
