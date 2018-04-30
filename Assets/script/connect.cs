@@ -91,5 +91,9 @@ public class connect : MonoBehaviour
     {
         SceneManager.LoadScene("Registration");
     }
+    public void qui_app()
+    {
+        Application.Quit(); 
+    }
 
 }

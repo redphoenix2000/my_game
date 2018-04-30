@@ -15,6 +15,7 @@ public class Multi_manag : MonoBehaviour {
     private GameObject panel_conf;
     private GameObject pause_panel;
     private static bool game_is_paused=false;
+    private GameObject cam;
 
     void Awake()
     {
@@ -34,6 +35,7 @@ public class Multi_manag : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Escape)&&game_is_paused==false)
         {
+            cam.GetComponent<Fps_camera>().enabled = false;
             pause_panel.gameObject.SetActive(true);
             Time.timeScale = 0f;
             game_is_paused = true;
@@ -99,6 +101,7 @@ public class Multi_manag : MonoBehaviour {
         status.text = "Status : ";
         Debug.Log("On rejoint la room");
         PhotonNetwork.Instantiate("Prefab/" + playerprefab.name, playerprefab.transform.position, Quaternion.identity, 0);
+        cam = GameObject.Find("Camera");
     }
 
     void OnPhotonCreateRoomFailed(object [] codeAndMsg)
@@ -149,6 +152,7 @@ public class Multi_manag : MonoBehaviour {
     }
     public void resume_game()
     {
+        cam.GetComponent<Fps_camera>().enabled = true;
         game_is_paused = false;
         pause_panel.gameObject.SetActive(false);
     }
