@@ -31,19 +31,25 @@ public class OptionsManager : MonoBehaviour{
     public void OnFullscreenToggle()
     {
        options.fullscreen = Screen.fullScreen = fullscreentoggle.isOn;
+        PlayerPrefs.SetString("screen", options.fullscreen.ToString());
+        Debug.Log(options.fullscreen.ToString());
     }
     public void OnResolutionChange()
     {
         Screen.SetResolution(resolutions[resolutiondropdown.value].width, resolutions[resolutiondropdown.value].height, Screen.fullScreen);
         options.resolution = resolutiondropdown.value;
+        PlayerPrefs.SetInt("width", resolutions[resolutiondropdown.value].width);
+        PlayerPrefs.SetInt("height", resolutions[resolutiondropdown.value].height);
     }
     public void OnQualityChange()
     {
         QualitySettings.masterTextureLimit = options.quality = qualitydropdown.value;
+        PlayerPrefs.SetInt("quality", options.quality);
     }
     public void OnMusicChanged()
     {
         musicSource.volume = options.musicvolume = slidervolume.value;
+        PlayerPrefs.SetFloat("volume", musicSource.volume);
     }
     public void savebutton()
     {

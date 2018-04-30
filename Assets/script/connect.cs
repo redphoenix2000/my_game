@@ -12,6 +12,7 @@ using MySql.Data.MySqlClient;
 
 public class connect : MonoBehaviour 
 {
+
     public string host;
     public string database;
     public string username;
@@ -20,6 +21,7 @@ public class connect : MonoBehaviour
     public InputField my_pass;
     MySqlConnection con;
     public Text TextStategeneral;
+    private AudioSource music;
 
     public void ConnectBdd_2()
     {
@@ -94,6 +96,29 @@ public class connect : MonoBehaviour
     public void qui_app()
     {
         Application.Quit(); 
+    }
+    void Awake()
+    {
+        music = GameObject.FindGameObjectWithTag("music").GetComponent<AudioSource>();
+        if (PlayerPrefs.HasKey("volume"))
+        {
+            float vol = PlayerPrefs.GetFloat("volume");
+            music.volume = vol;
+        }
+        if (PlayerPrefs.HasKey("screen"))
+        {
+            Screen.fullScreen = PlayerPrefs.GetString("screen") == "True";
+        }
+        if (PlayerPrefs.HasKey("quality"))
+        {
+            QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("quality"));
+        }
+        if (PlayerPrefs.HasKey("width") && PlayerPrefs.HasKey("height"))
+        {
+            Resolution[] resolutions = Screen.resolutions;
+            Screen.SetResolution(PlayerPrefs.GetInt("width"), PlayerPrefs.GetInt("height"), Screen.fullScreen);
+        }
+
     }
 
 }
